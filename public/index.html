@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <meta name="fragment" content="!">
+    <title>spielstand.net</title>
+    <script src="mithril.js"></script>
+    <script src='//unpkg.com/contentful@3.8.1/browser-dist/contentful.min.js'></script>
+    <script>
+        const client = contentful.createClient({
+            space: '6pvchtbsema4',
+            accessToken: '1bd3f01e56c718b6871d184019931c13ac62422013407079bd9c192b6d133217'
+        });
+    </script>
+</head>
+
+<body>
+    <div id='app'>
+    </div>
+    <script>
+        const state = {
+            articles: []
+        };
+
+        client
+            .getEntries({content_type: 'article'})
+            .then(function(result) {
+                state.articles = result.items;
+                m.redraw();
+            });
+
+        const Home = {
+            view: function (vnode) {
+                return m('div', [
+                    m('h1', 'content'),
+                    m('div', state.articles.map(function(article) {
+                        return m('a[href="/article/'+article.sys.id+'"]', {
+                            oncreate: m.route.link
+                        }, article.fields.title);
+                    }))
+                ]);
+            }
+        };
+
+        const Article = {
+            view: function(vnode) {
+                const article = state.articles.find(function(article) {
+                    return vnode.attrs.id == article.sys.id;
+                });
+
+                if (!article) {
+                    return m('div');
+                }
+
+                return m('div', [
+                    m('h1', article.fields.title),
+                    m('div', article.fields.content),
+                    m('a[href="/"]', {
+                        oncreate: m.route.link
+                    }, 'home')
+                ]);
+            }
+        };
+
+        m.route(document.getElementById('app'), '/', {
+            '/': Home,
+            '/article/:id': Article
+        });
+    </script>
+</body>
+
+</html>

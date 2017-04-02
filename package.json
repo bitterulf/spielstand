@@ -1,0 +1,27 @@
+{
+  "name": "spielstand",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitterulf/spielstand.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/bitterulf/spielstand/issues"
+  },
+  "homepage": "https://github.com/bitterulf/spielstand#readme",
+  "dependencies": {
+    "bunyan": "^1.8.9",
+    "bunyan-loggly": "^1.2.0",
+    "hapi": "^16.1.1",
+    "hapi-crawlable-spa": "^2.2.0",
+    "inert": "^4.1.0",
+    "lodash": "^4.17.4"
+  }
+}
